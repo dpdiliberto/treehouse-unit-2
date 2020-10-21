@@ -3,7 +3,6 @@ Treehouse Techdegree:
 FSJS Project 2 - Data Pagination and Filtering
 */
 
-
 // Declares how many items will be shown on the page
 let itemsPerPage = 9;
 
