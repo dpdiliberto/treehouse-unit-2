@@ -7,11 +7,6 @@ FSJS Project 2 - Data Pagination and Filtering
 // Declares how many items will be shown on the page
 let itemsPerPage = 9;
 
-/*
-Create the `showPage` function
-This function will create and insert/append the elements needed to display a "page" of nine students
-*/
-
 /***
  * `showPage` function takes in an array containing student objects and takes in the desired page,
  * builds the list elements html, and adds them to the list
