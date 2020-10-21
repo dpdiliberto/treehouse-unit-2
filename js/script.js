@@ -137,14 +137,14 @@ function addSearch(list) {
             };
          };
 
-         // Call functions based on searchResults
-         showPage(searchResults, 1);
-         addPagination(searchResults);
-
          // If no results are found, then display message
          if (searchResults.length === 0) {
             span.textContent = 'No matches found';
          };
+
+         // Call functions based on searchResults
+         showPage(searchResults, 1);
+         addPagination(searchResults);
       };
    });
 
