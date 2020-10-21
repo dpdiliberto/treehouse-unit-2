@@ -4,7 +4,7 @@ FSJS Project 2 - Data Pagination and Filtering
 */
 
 // Declares how many items will be shown on the page
-let itemsPerPage = 9;
+const itemsPerPage = 9;
 
 /***
  * `showPage` function takes in an array containing student objects and takes in the desired page,
@@ -14,8 +14,8 @@ let itemsPerPage = 9;
 ***/
 function showPage(list, page) {
    // Determine the index that the displayed students should start and end on
-   let startIndex = (page * itemsPerPage) - itemsPerPage;
-   let endIndex = page * itemsPerPage;
+   const startIndex = (page * itemsPerPage) - itemsPerPage;
+   const endIndex = page * itemsPerPage;
 
    // Select the .student-list class and initialize its content
    let studentList = document.querySelector('.student-list');
@@ -66,21 +66,23 @@ function addPagination(list) {
    };
    linkList.insertAdjacentHTML('beforeend', html);
    
-   // Select the first button element and set the class to 'active'
-   let activeButton = linkList.firstElementChild.firstElementChild;
-   activeButton.className = 'active';
+   // Select the first button element and set the class to 'active' if buttons were created
+   if (linkList.firstElementChild) {   
+      let activeButton = linkList.firstElementChild.firstElementChild;
+      activeButton.className = 'active';
 
-   // Add an event listener to linkList to do the following to make the clicked button active,
-   // and display corresponding students based on the page clicked
-   linkList.addEventListener('click', (e) => {
-      if (e.target.tagName === 'BUTTON') {
-         let clickedButton = e.target;
-         activeButton.className = '';
-         clickedButton.className = 'active';
-         activeButton = clickedButton;
-         showPage(list, activeButton.textContent);
-      };
-   });
+      // Add an event listener to linkList to do the following to make the clicked button active,
+      // and display corresponding students based on the page clicked
+      linkList.addEventListener('click', (e) => {
+         if (e.target.tagName === 'BUTTON') {
+            let clickedButton = e.target;
+            activeButton.className = '';
+            clickedButton.className = 'active';
+            activeButton = clickedButton;
+            showPage(list, activeButton.textContent);
+         };
+      });
+   };
 };
 
 /***
@@ -90,8 +92,8 @@ function addPagination(list) {
 function addSearch(list) {
 
    // Add html for a "search" label and add it to .header
-   let header = document.querySelector('.header');
-   let html = `<label for="search" class="student-search">
+   const header = document.querySelector('.header');
+   const html = `<label for="search" class="student-search">
    <input id="search" placeholder="Search by name...">
    <button type="button"><img src="img/icn-search.svg" alt="Search icon"></button>
  </label>`;
@@ -99,7 +101,7 @@ function addSearch(list) {
    
    // Create a span element and append it to searchLabel in the event that there are no search results
    let span = document.createElement('span');
-   let searchLabel = document.querySelector('.student-search');
+   const searchLabel = document.querySelector('.student-search');
    searchLabel.appendChild(span);
    span.textContent = '';
 
@@ -118,7 +120,8 @@ function addSearch(list) {
 
       // If searchResults is empty (if backspace to clear search input) then paginate with full list
       if (searchValue.length === 0) {
-         addPagination(data);
+         showPage(list, 1);
+         addPagination(list);
       } else {
 
          // Build array array based on search input by looping through list array and comparing each student's
@@ -134,6 +137,8 @@ function addSearch(list) {
          // If no results are found, then display message
          if (searchResults.length === 0) {
             span.textContent = 'No matches found';
+            showPage([], 1);
+            addPagination([]);
          };
 
          // Call functions based on searchResults
