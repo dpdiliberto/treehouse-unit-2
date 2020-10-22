@@ -7,7 +7,7 @@ FSJS Project 2 - Data Pagination and Filtering
 const itemsPerPage = 9;
 
 // Select the .student-list class and initialize its content
-let studentList = document.querySelector('.student-list');
+const studentList = document.querySelector('.student-list');
 studentList.innerHTML = '';
 
 /***
@@ -57,7 +57,7 @@ function addPagination(list) {
    let paginationButtonCount = Math.ceil(studentCount / 9);
 
    // Select .link-list class and initialize content to empty string
-   let linkList = document.querySelector('.link-list');
+   const linkList = document.querySelector('.link-list');
    linkList.innerHTML = '';
    let html = '';
 
