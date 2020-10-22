@@ -6,6 +6,10 @@ FSJS Project 2 - Data Pagination and Filtering
 // Declares how many items will be shown on the page
 const itemsPerPage = 9;
 
+// Select the .student-list class and initialize its content
+let studentList = document.querySelector('.student-list');
+studentList.innerHTML = '';
+
 /***
  * `showPage` function takes in an array containing student objects and takes in the desired page,
  * builds the list elements html, and adds them to the list
@@ -17,8 +21,7 @@ function showPage(list, page) {
    const startIndex = (page * itemsPerPage) - itemsPerPage;
    const endIndex = page * itemsPerPage;
 
-   // Select the .student-list class and initialize its content
-   let studentList = document.querySelector('.student-list');
+   // Reset studentList
    studentList.innerHTML = '';
 
    // Loop through the list array to add build a list item for each of the students
@@ -100,10 +103,10 @@ function addSearch(list) {
    header.insertAdjacentHTML('beforeend', html);
    
    // Create a span element and append it to searchLabel in the event that there are no search results
-   let span = document.createElement('span');
-   const searchLabel = document.querySelector('.student-search');
-   searchLabel.appendChild(span);
-   span.textContent = '';
+   const page = document.querySelector('.page');
+   const p = document.createElement('p');
+   page.insertBefore(p, studentList);
+   p.textContent = '';
 
    // Select the search input element
    let searchInput = document.querySelector('#search');
@@ -113,7 +116,7 @@ function addSearch(list) {
          
       // Return to default states
       searchInput.placeholder = 'Search by name...';
-      span.textContent = '';
+      p.textContent = '';
 
       let searchValue = searchInput.value;
       let searchResults = [];
@@ -136,7 +139,7 @@ function addSearch(list) {
 
          // If no results are found, then display message
          if (searchResults.length === 0) {
-            span.textContent = 'No matches found';
+            p.textContent = 'No matches found';
             showPage([], 1);
             addPagination([]);
          };
